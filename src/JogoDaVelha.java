@@ -1,73 +1,110 @@
 import java.util.Scanner;
-public class JogoDaVelha {
-    public static boolean vitoria(char [][] jogo){
-        //horizontais
-        if((jogo[0][0] == 'X' && jogo[0][1] == 'X' && jogo[0][2] == 'X') || (jogo[0][0] == 'O' && jogo[0][1] == 'O' && jogo[0][2] == 'O')){
-            return true;
-        }else if((jogo[1][0] == 'X' && jogo[1][1] == 'X' && jogo[1][2] == 'X') || (jogo[1][0] == 'O' && jogo[1][1] == 'O' && jogo[1][2] == 'O')){
-            return true;
-        }else if((jogo[2][0] == 'X' && jogo[2][1] == 'X' && jogo[2][2] == 'X') || (jogo[2][0] == 'O' && jogo[2][1] == 'O' && jogo[2][2] == 'O')){
-            return true;
-        }
-        //verticais
-        else if((jogo[0][0] == 'X' && jogo[1][0] == 'X' && jogo[2][0] == 'X') || (jogo[0][0] == 'O' && jogo[1][0] == 'O' && jogo[2][0] == 'O')){
-            return true;
-        }else if((jogo[0][1] == 'X' && jogo[1][1] == 'X' && jogo[2][1] == 'X') || (jogo[0][1] == 'O' && jogo[1][1] == 'O' && jogo[2][1] == 'O')) {
-            return true;
-        }else if((jogo[0][2] == 'X' && jogo[1][2] == 'X' && jogo[2][2] == 'X') || (jogo[0][2] == 'O' && jogo[1][2] == 'O' && jogo[2][2] == 'O')){
-            return true;
-        }
-        //diagonais
-        else if((jogo[0][0] == 'X' && jogo[1][1] == 'X' && jogo[2][2] == 'X') || (jogo[0][0] == 'O' && jogo[1][1] == 'O' && jogo[2][2] == 'O')){
-            return true;
-        }else if((jogo[0][2] == 'X' && jogo[1][1] == 'X' && jogo[2][0] == 'X') || (jogo[0][2] == 'O' && jogo[1][1] == 'O' && jogo[2][0] == 'O')){
-            return true;
-        }
-        return true;
-    }
 
-    public static boolean empate(char [][] jogo){
-        if((jogo[0][0] == 'X' && jogo[0][1] == 'X' && jogo[0][2] == 'X') || (jogo[0][0] == 'O' && jogo[0][1] == 'O' && jogo[0][2] == 'O')){
-            return false;
-        }else if((jogo[1][0] == 'X' && jogo[1][1] == 'X' && jogo[1][2] == 'X') || (jogo[1][0] == 'O' && jogo[1][1] == 'O' && jogo[1][2] == 'O')){
-            return false;
-        }else if((jogo[2][0] == 'X' && jogo[2][1] == 'X' && jogo[2][2] == 'X') || (jogo[2][0] == 'O' && jogo[2][1] == 'O' && jogo[2][2] == 'O')){
-            return false;
-        }
-        //verticais
-        else if((jogo[0][0] == 'X' && jogo[1][0] == 'X' && jogo[2][0] == 'X') || (jogo[0][0] == 'O' && jogo[1][0] == 'O' && jogo[2][0] == 'O')){
-            return false;
-        }else if((jogo[0][1] == 'X' && jogo[1][1] == 'X' && jogo[2][1] == 'X') || (jogo[0][1] == 'O' && jogo[1][1] == 'O' && jogo[2][1] == 'O')) {
-            return false;
-        }else if((jogo[0][2] == 'X' && jogo[1][2] == 'X' && jogo[2][2] == 'X') || (jogo[0][2] == 'O' && jogo[1][2] == 'O' && jogo[2][2] == 'O')){
-            return false;
-        }
-        //diagonais
-        else if((jogo[0][0] == 'X' && jogo[1][1] == 'X' && jogo[2][2] == 'X') || (jogo[0][0] == 'O' && jogo[1][1] == 'O' && jogo[2][2] == 'O')){
-            return false;
-        }else if((jogo[0][2] == 'X' && jogo[1][1] == 'X' && jogo[2][0] == 'X') || (jogo[0][2] == 'O' && jogo[1][1] == 'O' && jogo[2][0] == 'O')){
-            return false;
-        }else {
-            return true;
-        }
-    }
+public class TicTacToe {
 
-    public static void imprimeTabuleiro(char[][] jogo){
+    static int count = 0;
+    private static char[][] board = new char[3][3];
+
+    private static char currentPlayer = 'X';
+
+    public static void initBoard() {
         for (int i = 0; i < 3; i++) {
-            System.out.println("|  |  |  |");
             for (int j = 0; j < 3; j++) {
-
+                board[i][j] = '-';
             }
-            System.out.println("__________");
         }
     }
-    //char [][] jogo = new char[3][3];
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        char [][] jogo = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
-        //while (!vitoria(jogo) || !empate(jogo)){
-        imprimeTabuleiro(jogo);
+    public static void printBoard() {
+        System.out.println("-------------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
+    }
+
+    public static void switchPlayer() {
+        if (currentPlayer == 'X') {
+            currentPlayer = 'O';
+        } else {
+            currentPlayer = 'X';
+        }
+    }
+
+    public static void placeMark(int row, int col) {
+        board[row][col] = currentPlayer;
+    }
+
+    public static boolean isGameOver() {
+        count++;
+        if (checkRows() || checkColumns() || checkDiagonals()) {
+            printBoard();
+            switchPlayer();
+            System.out.println(currentPlayer + "'s wins!");
+            return (true);
+        } else if(count >= 10){
+            System.out.println("Draw.");
+            return (true);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    private static boolean checkRows() {
+        for (int i = 0; i < 3; i++) {
+            if (checkRowCol(board[i][0], board[i][1], board[i][2])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkColumns() {
+        for (int i = 0; i < 3; i++) {
+            if (checkRowCol(board[0][i], board[1][i], board[2][i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkDiagonals() {
+        return (checkRowCol(board[0][0], board[1][1], board[2][2]) || checkRowCol(board[0][2], board[1][1], board[2][0]));
+    }
+
+    private static boolean checkRowCol(char c1, char c2, char c3) {
+        return ((c1 != '-') && (c1 == c2) && (c2 == c3));
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        char answer = 'S';
+        while (answer == 'S' || answer == 's') {
+            initBoard();
+            System.out.println("Tic Tac Toe Game");
+            while (!isGameOver()) {
+                printBoard();
+                System.out.println(currentPlayer + "'s turn");
+                System.out.print("Enter row number (1-3): ");
+                int row = scanner.nextInt() - 1;
+                System.out.print("Enter column number (1-3): ");
+                int col = scanner.nextInt() - 1;
+                if (row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != '-') {
+                    System.out.println("Invalid move. Try again.");
+                    continue;
+                } else {
+                    placeMark(row, col);
+                    switchPlayer();
+                }
+            }
+            System.out.println("Para continuar, digite 'S', caso contrário, digite 'N': ");
+            answer = scanner.next().charAt(0);
+        }
     }
 }
-
