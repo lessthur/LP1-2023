@@ -7,6 +7,7 @@ public class Main {
         Lazer controleLazer = new Lazer("Thur", 32, false);
 
         System.out.println(controleLazer.getValor());
-        //System.out.println(controleLazer.mudarValor());
+        controleLazer.mudarValor(50.0);
+        System.out.println(controleLazer.getValor());
     }
 }
