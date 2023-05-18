@@ -9,5 +9,9 @@ public class Main {
         System.out.println(controleLazer.getValor());
         controleLazer.mudarValor(50.0);
         System.out.println(controleLazer.getValor());
+        
+        System.out.println(controleVariavel.getValor());
+        controleVariavel.mudarValor(32.0);
+        System.out.println(controleVariavel.getValor());
     }
 }
